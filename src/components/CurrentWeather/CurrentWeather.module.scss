@@ -9,7 +9,6 @@
 	padding: 30px;
 	@include setBackground;
 	color: $textColor;
-
 }
 
 .wrapper {
@@ -22,7 +21,9 @@
 	font-size: 18px;
 }
 
-.left, .middle, .right {
+.left,
+.middle,
+.right {
 	// min-height: 179px;
 	display: flex;
 	flex-direction: column;
@@ -33,12 +34,15 @@
 .date {
 	font-size: 17px;
 	font-weight: 600;
+	&::first-letter {
+		text-transform: uppercase;
+	}
 }
 
 .temp {
 	font-size: 65px;
 	margin-bottom: 20px;
-	color: #FFD259;
+	color: #ffd259;
 }
 
 .feels {
@@ -47,10 +51,13 @@
 
 .descr {
 	font-size: 13px;
+	&::first-letter {
+		text-transform: uppercase;
+	}
 }
 
 .details {
-		font-size: 20px;
+	font-size: 20px;
 }
 
 .more__list {

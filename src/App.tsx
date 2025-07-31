@@ -3,16 +3,13 @@ import { Header } from './components';
 import MainPage from './pages/MainPage/MainPage';
 
 function App() {
-
 	const queryClient = new QueryClient();
 
 	return (
-		// <ReactColorA11y  flipBlackAndWhite={true}>
-			<QueryClientProvider client={queryClient}>
+		<QueryClientProvider client={queryClient}>
 			<Header />
-				<MainPage />
-			</QueryClientProvider>
-		// </ReactColorA11y>
+			<MainPage />
+		</QueryClientProvider>
 	);
 }
 

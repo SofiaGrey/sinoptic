@@ -1,15 +1,19 @@
-﻿import { useQuery } from '@tanstack/react-query';
+﻿import { getAllWeatherData } from '@/api/temperature';
+import {
+	Container,
+	CurrentWeather,
+	Error,
+	FiveDayForecast,
+	Forecast,
+	Loader,
+	Main,
+	Search,
+	StartScreen,
+} from '@/components';
+import { setBackground } from '@/utils';
+import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
-import { getAllWeatherData } from '../../api/temperature';
-import { CurrentWeather } from '../../components';
-import Error from '../../components/Error/Error';
-import FiveDayForecast from '../../components/FiveDayForecast/FiveDayForecast';
-import Forecast from '../../components/Forecast/Forecast';
-import Loader from '../../components/Loader/Loader';
-import Search from '../../components/Search/Search';
-import { setBackground } from '../../utils/utils';
 import styles from './MainPage.module.scss';
-import StartScreen from '../../components/StartScreen/StartScreen';
 
 const MainPage = () => {
 	const [city, setCity] = useState('');
@@ -19,7 +23,7 @@ const MainPage = () => {
 		queryKey: ['weatherData', selected],
 		queryFn: () => getAllWeatherData(selected!),
 		enabled: !!selected,
-		// retry: 300,
+		retry: 1,
 	});
 
 	const handleSearch = () => {
@@ -47,29 +51,27 @@ const MainPage = () => {
 			return <Loader />;
 		case 'success':
 			return (
-				<main
-					className={styles.main}
+				<Main
 					style={{
 						backgroundImage: `url(${setBackground(
 							data.current.weather[0].id,
 							date,
 						)})`,
 					}}>
-					<div className="container">
+					<Container>
 						<div className={styles.main__wrapper}>
 							<Search
 								city={city}
 								onChange={setCity}
 								onSearch={handleSearch}
-								classNameBlock="search"
-								classNameInp="input"
+								classNameBlock={styles.search}
 							/>
 							<CurrentWeather data={data.current} />
 							<Forecast data={data.forecast} />
 							<FiveDayForecast data={data.forecast} />
 						</div>
-					</div>
-				</main>
+					</Container>
+				</Main>
 			);
 	}
 };

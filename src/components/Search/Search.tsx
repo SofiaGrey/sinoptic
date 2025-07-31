@@ -6,15 +6,14 @@ interface Props {
 	onChange: (city: string) => void;
 	onSearch: () => void;
 	classNameBlock?: string;
-	classNameInp?: string;
 }
 
 
-const Search:FC<Props> = ({city, onChange, onSearch, classNameBlock, classNameInp}) => {
+export const Search:FC<Props> = ({city, onChange, onSearch, classNameBlock}) => {
 	return (
 		<div className={`${styles.default__search} ${classNameBlock} `}>
 			<input
-				className={`${styles.default__input} ${classNameInp} `}
+				className={styles.default__input}
 				type="text"
 				placeholder="Поиск по городам"
 				value={city}
@@ -30,4 +29,3 @@ const Search:FC<Props> = ({city, onChange, onSearch, classNameBlock, classNameIn
 	);
 };
 
-export default Search;

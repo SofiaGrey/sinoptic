@@ -16,12 +16,6 @@
 	| 'thundershtorm'
 	| 'windy';
 
-// export type ApiParameters = (
-// 	city: string,
-// 	lang: string,
-// 	units: string,
-// ) => 
-
 export interface CurrentWeatherType {
 	coord: {
 		lon: number;

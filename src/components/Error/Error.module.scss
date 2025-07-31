@@ -31,6 +31,7 @@
 	padding: 16px 48px;
 	background: linear-gradient(-90deg,#3756CB, #77269A);
 	color: $textColor;
+	text-transform: uppercase;
 	transition: box-shadow .3s ease-in-out;
 	&:hover {
 		box-shadow: 0 0 15px 2px #ffffffbd;

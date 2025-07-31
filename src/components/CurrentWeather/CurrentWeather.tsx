@@ -1,24 +1,23 @@
 ﻿import type { FC } from 'react';
 import type { CurrentWeatherType } from '../../types/types';
 import {
-	capitalize,
 	formatUnixDate,
 	getWeatherIcon,
 	roundTemp,
 	setColor,
-} from '../../utils/utils';
+} from '@/utils';
 import { Icon } from '../Icon/Icon';
 import styles from './CurrentWeather.module.scss';
+import { mbar } from '@/constants/constants';
 
 interface Props {
 	data: CurrentWeatherType;
 }
 
 export const CurrentWeather: FC<Props> = ({ data }) => {
-	// console.log(data);
 	const date = new Date();
 	const weather = data.weather[0];
-
+	console.log(data)
 	const currentTime = formatUnixDate(data.dt, 'date');
 
 	return (
@@ -31,21 +30,21 @@ export const CurrentWeather: FC<Props> = ({ data }) => {
 				/>
 				<div className={styles.wrapper}>
 					<p className={styles.sunrise}>
-						Восход: {formatUnixDate(data.sys.sunrise, 'time')}
+						Восход: {formatUnixDate(data.sys.sunrise)}
 					</p>
 					<p className={styles.sunrise}>
-						Закат: {formatUnixDate(data.sys.sunset, 'time')}
+						Закат: {formatUnixDate(data.sys.sunset)}
 					</p>
 				</div>
 			</div>
 			<div className={styles.middle}>
-				<p className={styles.date}>{capitalize(currentTime ?? '')}</p>
+				<p className={styles.date}>{currentTime}</p>
 				<div>
-					<h1 className={styles.temp} style={{color: setColor(roundTemp(data.main.temp))}}>{roundTemp(data.main.temp)}C</h1>
+					<h1 className={styles.temp} style={{color: setColor(data.main.temp)}}>{roundTemp(data.main.temp)}C</h1>
 					<p className={styles.feels}>
 						Ощущается как {roundTemp(data.main.feels_like)}
 					</p>
-					<p className={styles.descr}>{capitalize(weather.description)}</p>
+					<p className={styles.descr}>{weather.description}</p>
 				</div>
 			</div>
 			<div className={styles.right}>
@@ -58,7 +57,7 @@ export const CurrentWeather: FC<Props> = ({ data }) => {
 						Влажность воздуха: <b>{data.main.humidity} %</b>
 					</li>
 					<li className={styles.more__item}>
-						Давление: <b>{Math.round(data.main.pressure * 0.75006)} мм</b>
+						Давление: <b>{Math.round(data.main.pressure * mbar)} мм</b>
 					</li>
 					<li className={styles.more__item}>
 						Облачность: <b>{data.clouds.all}%</b>

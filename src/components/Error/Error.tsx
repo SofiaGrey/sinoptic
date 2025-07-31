@@ -5,19 +5,18 @@ interface Props {
 	error: string;
 }
 
-const Error: FC<Props> = ({ error }) => {
+export const Error: FC<Props> = ({ error }) => {
 	return (
 		<div className={styles.block}>
-			<h1 className={styles.title}>Произошла ошибка</h1>
+			<h1 className={styles.title}>Произошла ошибка - 404</h1>
 			<p className={styles.error}>{error}</p>
 			<p className={styles.text}>Возможно вы ошиблись в названии</p>
 			<button
 				className={styles.btn}
 				onClick={() => window.location.reload()}>
-				ПОПРОБОВАТЬ СНОВА
+				Попробовать снова
 			</button>
 		</div>
 	);
 };
 
-export default Error;
