@@ -1,0 +1,29 @@
+
+@use "../../styles/mixins.scss" as *;
+
+.default__search {
+	display: flex;
+	gap: 20px;
+	align-items: center;
+	width: 60%;
+	z-index: 100;
+}
+
+.default__input {
+	width: 100%;
+	@include setBackground;
+	padding: 15px;
+	color: $textColor;
+	outline: none;
+	&::placeholder {
+		color: $darkenTextColor
+	}
+	z-index: 100;
+
+}
+
+.btn {
+@include setBackground;
+padding: 15px;
+color: $textColor;
+}

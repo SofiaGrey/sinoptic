@@ -1,0 +1,13 @@
+@use "../../styles/variables.scss" as *;
+
+.header {
+	position: fixed;
+	display: flex;
+	padding: 20px 30px;
+	width: 100%;
+	color: $textColor;
+	z-index: 1;
+	&__logo {
+		font: 700 20px 'Exo 2';
+	}
+}

@@ -1,0 +1,38 @@
+@use '../../styles/variables.scss' as *;
+@use "../../styles/animations.scss" as *;
+
+
+.block {
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 20px;
+	color: $textColor;
+	background: no-repeat bottom / cover url('error.jpg');
+	animation: fadeIn 1s ease-in-out  forwards;
+}
+
+.title {
+	font-size: 50px;
+}
+
+.error {
+	padding: 10px 15px;
+	border-radius: 20px;
+	background-color: #ffffff19;
+	font-size: 18px;
+}
+
+
+.btn {
+	border-radius: 30px;
+	padding: 16px 48px;
+	background: linear-gradient(-90deg,#3756CB, #77269A);
+	color: $textColor;
+	transition: box-shadow .3s ease-in-out;
+	&:hover {
+		box-shadow: 0 0 15px 2px #ffffffbd;
+	}
+}

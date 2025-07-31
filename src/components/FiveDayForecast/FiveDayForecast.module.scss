@@ -1,0 +1,49 @@
+@use '../../styles/mixins.scss' as *;
+@use '../../styles/variables.scss' as *;
+
+.forecast {
+	// height: 300px;
+}
+
+.list {
+	display: grid;
+	grid-column: span 2;
+	grid-template-columns: repeat(5, 1fr);
+	gap: 30px;
+	padding: $pd;
+	color: $textColor;
+	z-index: 100;
+	// @include setBackground;
+background: rgba(0, 0, 0, 0.22);
+	border-radius: 16px;
+	box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+	backdrop-filter: blur(3.9px);
+	-webkit-backdrop-filter: blur(3.9px);
+	border: 1px solid rgba(0, 0, 0, 0.17);
+}
+
+.item {
+	display: flex;
+	flex-direction: column;
+	// @include setBackground;
+}
+
+.week {
+	margin-bottom: 5px;
+}
+
+.date {
+	color: $darkenTextColor;
+	margin-bottom: 10px;
+}
+
+.temp {
+	margin-bottom: 20px;
+}
+.min_temp {
+	color: $darkenTextColor;
+}
+
+.icon {
+	margin-bottom: 5px;
+}

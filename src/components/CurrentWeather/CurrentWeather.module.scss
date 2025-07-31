@@ -1,0 +1,60 @@
+@use "../../styles/mixins.scss" as *;
+@use "../../styles/variables.scss" as *;
+
+.current__weather {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 20px;
+	padding: 30px;
+	@include setBackground;
+	color: $textColor;
+
+}
+
+.wrapper {
+	display: flex;
+	flex-direction: column;
+	gap: 7px;
+}
+
+.sunrise {
+	font-size: 18px;
+}
+
+.left, .middle, .right {
+	// min-height: 179px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	gap: 10px;
+}
+
+.date {
+	font-size: 17px;
+	font-weight: 600;
+}
+
+.temp {
+	font-size: 65px;
+	margin-bottom: 20px;
+	color: #FFD259;
+}
+
+.feels {
+	margin-bottom: 5px;
+}
+
+.descr {
+	font-size: 13px;
+}
+
+.details {
+		font-size: 20px;
+}
+
+.more__list {
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
+}

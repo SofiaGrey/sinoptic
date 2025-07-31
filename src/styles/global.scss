@@ -1,0 +1,55 @@
+@use './variables.scss' as *;
+@use './mixins.scss';
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&display=swap');
+
+html {
+	box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: inherit;
+}
+
+p,
+h1,
+h2,
+h3,
+ul {
+	padding: 0;
+	margin: 0;
+}
+img {
+	width: 100%;
+}
+
+ul {
+	list-style: none;
+}
+
+button {
+	padding: 0;
+	border: none;
+	background-color: inherit;
+	outline: none;
+	cursor: pointer;
+}
+
+body {
+	font-family: "Exo 2", sans-serif;
+}
+
+.container {
+	margin: 0 auto;
+	width: 100%;
+	max-width: 1440px;
+	padding: 0 20px;
+}
+
+.search {
+	position: absolute;
+	top: 64px;
+	width: 25%;
+}
+

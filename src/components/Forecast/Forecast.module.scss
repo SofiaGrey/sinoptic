@@ -1,0 +1,32 @@
+@use '../../styles/mixins.scss' as *;
+
+.list {
+	color: #fff;
+	display: grid;
+	grid-template-columns: repeat(5, 1fr);
+	gap: 20px;
+	padding: 20px;
+	@include setBackground;
+}
+
+.item {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-between;
+	// gap: 10px;
+}
+
+.temp {
+	font-size: 20px;
+}
+
+.descr {
+	height: 2.1em;
+	text-align: center;
+	font-size: 13px;
+}
+
+.time, .date {
+	color: #cacaca;
+}
