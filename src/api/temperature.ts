@@ -1,4 +1,4 @@
-﻿import { API_KEY } from '../constants/constants';
+﻿import { API_KEY, API_URL } from '../constants/constants';
 import type { CurrentWeatherType, ForecastWeather } from '../types/types';
 
 interface ApiParams {
@@ -9,72 +9,62 @@ interface ApiParams {
 	units: string;
 }
 
-export const getCurrentWeather = async ({
-	city,
-	lat,
-	lon,
-	lang,
-	units,
-}: ApiParams): Promise<CurrentWeatherType> => {
+const withApiKey = (url: string) => `${url}&appid=${API_KEY}`;
+
+const buildUrl = (
+	endpoin: string,
+	{ city, lat, lon, lang, units }: ApiParams,
+) => {
 	if (city) {
-		const res = await fetch(
-			`https://api.openweathermap.org/data/2.5/weather?q=${city}&lang=${lang}&units=${units}&appid=${API_KEY}`,
+		return withApiKey(
+			`${API_URL}/${endpoin}?q=${city}&lang=${lang}&units=${units}`,
 		);
-		if (!res.ok)
-			throw new Error(
-				`Не удалось получить данные по указанному городу - ${city}`,
-			);
-		return res.json();
-	} else {
-		const res = await fetch(
-			`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&lang=${lang}&units=${units}&appid=${API_KEY}`,
-		);
-		if (!res.ok)
-			throw new Error(`Не удалось получить данные по вашему местоположнию`);
-		return res.json();
 	}
+	return withApiKey(
+		`${API_URL}/${endpoin}?lat=${lat}&lon=${lon}&lang=${lang}&units=${units}`,
+	);
 };
 
-export const getForecastWeather = async ({
-	city,
-	lat,
-	lon,
-	lang,
-	units,
-}: ApiParams): Promise<ForecastWeather> => {
-	if (city) {
-		const res = await fetch(
-			`https://api.openweathermap.org/data/2.5/forecast?q=${city}&lang=${lang}&units=${units}&appid=${API_KEY}`,
-		);
-		if (!res.ok)
-			throw new Error(
-				`Не удалось получить данные по указанному городу - ${city}`,
-			);
-		return res.json();
-	} else {
-		const res = await fetch(
-			`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&lang=${lang}&units=${units}&appid=${API_KEY}`,
-		);
-		if (!res.ok)
-			throw new Error(`Не удалось получить данные по вашему местополоджению`);
-		return res.json();
-	}
+const fetchWeather = async (
+	endpoint: string,
+	params: ApiParams,
+	errorMsg: string,
+) => {
+	const url = buildUrl(endpoint, params);
+	console.log(url);
+	const res = await fetch(url);
+	if (!res.ok) throw new Error(errorMsg);
+	return res.json();
 };
 
-export const getAllWeatherData = async ({
-	city,
-	lat,
-	lon,
-	lang,
-	units,
-}: ApiParams): Promise<{
+export const getCurrentWeather = async (
+	params: ApiParams,
+): Promise<CurrentWeatherType> => {
+	const err = params.city
+		? `Не удалось получить данные по указанному городу - ${params.city}`
+		: `Не удалось получить данные по вашему местоположнию`;
+	return fetchWeather('weather', params, err);
+};
+
+export const getForecastWeather = async (
+	params: ApiParams,
+): Promise<ForecastWeather> => {
+	const err = params.city
+		? `Не удалось получить данные по указанному городу - ${params.city}`
+		: `Не удалось получить данные по вашему местоположнию`;
+	return fetchWeather('forecast', params, err);
+};
+
+export const getAllWeatherData = async (
+	params: ApiParams,
+): Promise<{
 	current: CurrentWeatherType;
 	forecast: ForecastWeather;
 }> => {
 	try {
 		const [current, forecast] = await Promise.all([
-			getCurrentWeather({city, lat, lon, lang, units}),
-			getForecastWeather({city, lat, lon, lang, units}),
+			getCurrentWeather(params),
+			getForecastWeather(params),
 		]);
 		return { current, forecast };
 	} catch (error: any) {
