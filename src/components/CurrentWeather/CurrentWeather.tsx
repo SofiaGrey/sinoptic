@@ -25,8 +25,8 @@ export const CurrentWeather: FC<Props> = ({ data }) => {
 			<div className={styles.left}>
 				<Icon
 					name={getWeatherIcon(weather.id, date)}
-					width={120}
-					height={120}
+					width={110}
+					height={110}
 				/>
 				<div className={styles.wrapper}>
 					<p className={styles.sunrise}>

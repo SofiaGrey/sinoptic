@@ -1,15 +1,22 @@
-import type { FC } from 'react';
+import { useState, type FC } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styles from './Search.module.scss';
 
 interface Props {
-	city: string;
-	onChange: (city: string) => void;
-	onSearch: () => void;
+	cityFromQuery?: string;
 	classNameBlock?: string;
 }
 
+export const Search: FC<Props> = ({ cityFromQuery = '', classNameBlock }) => {
+	const [city, setCity] = useState(cityFromQuery);
+	const navigate = useNavigate();
 
-export const Search:FC<Props> = ({city, onChange, onSearch, classNameBlock}) => {
+	const handleSearch = () => {
+		if (city) {
+			navigate(`/weather?city=${city}`);
+		}
+	};
+
 	return (
 		<div className={`${styles.default__search} ${classNameBlock} `}>
 			<input
@@ -17,15 +24,14 @@ export const Search:FC<Props> = ({city, onChange, onSearch, classNameBlock}) => 
 				type="text"
 				placeholder="Поиск по городам"
 				value={city}
-				onChange={(e) => onChange(e.target.value)}
-				onKeyDown={(e) => e.key === 'Enter' && onSearch()}
+				onChange={(e) => setCity(e.target.value.trim())}
+				onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
 			/>
 			<button
 				className={styles.btn}
-				onClick={() => onSearch()}>
+				onClick={() => handleSearch()}>
 				Найти
 			</button>
 		</div>
 	);
 };
-

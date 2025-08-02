@@ -7,4 +7,3 @@ export { Header } from './Header/Header';
 export { Loader } from './Loader/Loader';
 export { Main } from './Main/Main';
 export { Search } from './Search/Search';
-export { StartScreen } from './StartScreen/StartScreen';
