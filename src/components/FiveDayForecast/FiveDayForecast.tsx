@@ -54,7 +54,7 @@ export const FiveDayForecast: FC<Props> = ({ data }) => {
 								className={styles.item}
 								key={item.date}>
 								<h2 className={styles.week}>
-									{formatForecastKey(item.date).weekday.toUpperCase()}
+									{formatForecastKey(item.date).weekday}
 								</h2>
 								<span className={styles.date}>
 									{formatForecastKey(item.date).dayMonth}
