@@ -1,0 +1,38 @@
+@use "../../styles/mixins.scss" as *;
+
+.list {
+	position: absolute;
+	top: 120%;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	padding: 10px 0;
+	@include setBackground;
+}
+
+.error__item {
+	padding: 2px 15px;
+	width: 100%;
+	color: $textColor;
+}
+
+.btn {
+	padding: 2px 15px;
+	width: 100%;
+	transition: background 0.3s ease-in-out;
+	text-align: start;
+	cursor: pointer;
+	&:hover {
+		background: $lightBg;
+	}
+}
+
+.city {
+	color: $textColor;
+}
+
+.country {
+	color: $darkenTextColor;
+	font-size: 13px;
+}
