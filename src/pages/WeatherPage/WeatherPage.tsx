@@ -13,28 +13,44 @@ import { setBackground } from '@/utils';
 import { useQuery } from '@tanstack/react-query';
 import { useSearchParams } from 'react-router-dom';
 import styles from './WeatherPage.module.scss';
+import { useMemo } from 'react';
+
+const getCoords = (name: string) => {
+	return localStorage.getItem(name);
+};
 
 export const WeatherPage = () => {
 	const [searchParams] = useSearchParams();
+	const cityFromQuery = searchParams.get('city') || '';
+	const date = new Date();
 
-	const city = searchParams.get('city') || '';
-
-	const lat = window.localStorage.getItem('lat');
-	const lon = window.localStorage.getItem('lon');
+	const { lat, lon, selectedCityLat, selectedCityLon } = useMemo(
+		() => ({
+			lat: getCoords('lat'),
+			lon: getCoords('lon'),
+			selectedCityLat: getCoords('selectedCityLat'),
+			selectedCityLon: getCoords('selectedCityLon'),
+		}),
+		[],
+	);
 
 	const { data, status, error } = useQuery({
-		queryKey: ['weatherData', city || `${lat}, ${lon}`],
+		queryKey: ['weatherData', cityFromQuery || [lat, lon]],
 		queryFn: () => {
-			if (city) {
-				return getAllWeatherData({ city, lang: 'ru', units: 'metric' });
-			} else if (lat && lon) {
+			if (selectedCityLat && selectedCityLon) {
+				return getAllWeatherData({
+					lat: selectedCityLat,
+					lon: selectedCityLon,
+					lang: 'ru',
+					units: 'metric',
+				});
+			}
+			if (lat && lon) {
 				return getAllWeatherData({ lat, lon, lang: 'ru', units: 'metric' });
 			}
 		},
 		retry: 1,
 	});
-
-	const date = new Date();
 
 	switch (status) {
 		case 'error':
@@ -55,7 +71,7 @@ export const WeatherPage = () => {
 							<div className={styles.main__wrapper}>
 								<Search
 									classNameBlock={styles.search}
-									cityFromQuery={city || data?.current.name}
+									cityFromQuery={cityFromQuery || data?.current.name}
 								/>
 								<CurrentWeather data={data.current} />
 								<Forecast data={data.forecast} />

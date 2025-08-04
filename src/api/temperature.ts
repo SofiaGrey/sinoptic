@@ -3,56 +3,24 @@ import type { CurrentWeatherType, ForecastWeather } from '../types/types';
 
 interface ApiParams {
 	city?: string;
-	lat?: string;
-	lon?: string;
+	lat: string;
+	lon: string;
 	lang: string;
 	units: string;
 }
-
-const withApiKey = (url: string) => `${url}&appid=${API_KEY}`;
-
-const buildUrl = (
-	endpoin: string,
-	{ city, lat, lon, lang, units }: ApiParams,
-) => {
-	if (city) {
-		return withApiKey(
-			`${API_URL}/${endpoin}?q=${city}&lang=${lang}&units=${units}`,
-		);
-	}
-	return withApiKey(
-		`${API_URL}/${endpoin}?lat=${lat}&lon=${lon}&lang=${lang}&units=${units}`,
-	);
-};
-
 const fetchWeather = async (
 	endpoint: string,
-	params: ApiParams,
-	errorMsg: string,
+	{ city, lat, lon, lang, units }: ApiParams,
 ) => {
-	const url = buildUrl(endpoint, params);
-	console.log(url);
-	const res = await fetch(url);
-	if (!res.ok) throw new Error(errorMsg);
+	const res = await fetch(
+		`${API_URL}/${endpoint}?lat=${lat}&lon=${lon}&lang=${lang}&units=${units}&appid=${API_KEY}`,
+	);
+	if (!res.ok) {
+		throw new Error(
+			`Не удалось получить данные по указанному городу - ${city}`,
+		);
+	}
 	return res.json();
-};
-
-export const getCurrentWeather = async (
-	params: ApiParams,
-): Promise<CurrentWeatherType> => {
-	const err = params.city
-		? `Не удалось получить данные по указанному городу - ${params.city}`
-		: `Не удалось получить данные по вашему местоположнию`;
-	return fetchWeather('weather', params, err);
-};
-
-export const getForecastWeather = async (
-	params: ApiParams,
-): Promise<ForecastWeather> => {
-	const err = params.city
-		? `Не удалось получить данные по указанному городу - ${params.city}`
-		: `Не удалось получить данные по вашему местоположнию`;
-	return fetchWeather('forecast', params, err);
 };
 
 export const getAllWeatherData = async (
@@ -63,8 +31,8 @@ export const getAllWeatherData = async (
 }> => {
 	try {
 		const [current, forecast] = await Promise.all([
-			getCurrentWeather(params),
-			getForecastWeather(params),
+			fetchWeather('weather', params),
+			fetchWeather('forecast', params),
 		]);
 		return { current, forecast };
 	} catch (error: any) {

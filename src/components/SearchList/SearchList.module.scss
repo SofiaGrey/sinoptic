@@ -11,7 +11,8 @@
 	@include setBackground;
 }
 
-.error__item {
+.error__item,
+.load__item {
 	padding: 2px 15px;
 	width: 100%;
 	color: $textColor;

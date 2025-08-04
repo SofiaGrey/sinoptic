@@ -23,8 +23,16 @@ export const SearchList: FC<Props> = ({ city }) => {
 		const btn = e.target.closest('button');
 		if (!btn) return;
 		if (btn instanceof HTMLButtonElement) {
-			const value = btn.dataset.value ? btn.dataset.value : '';
-			navigate(`/weather?city=${value}`);
+			const city = btn.dataset.city || '';
+			const lat = btn.dataset.lat;
+			const lon = btn.dataset.lon;
+
+			if (lat && lon) {
+				localStorage.setItem('selectedCityLat', lat);
+				localStorage.setItem('selectedCityLon', lon);
+			}
+
+			navigate(`/weather?city=${city}`);
 		}
 	};
 
@@ -38,7 +46,7 @@ export const SearchList: FC<Props> = ({ city }) => {
 		case 'pending':
 			return (
 				<ul className={styles.list}>
-					<li className={styles.item}>Загрузка...</li>
+					<li className={styles.load__item}>Загрузка...</li>
 				</ul>
 			);
 		case 'success':
@@ -53,7 +61,9 @@ export const SearchList: FC<Props> = ({ city }) => {
 								key={item.place_id}>
 								<button
 									className={styles.btn}
-									data-value={item.address.name}>
+									data-city={item.address.name}
+									data-lat={item.lat}
+									data-lon={item.lon}>
 									<p className={styles.city}>{item.address.name}</p>
 									<p className={styles.country}>
 										{item.address.state} {item.address.country}
