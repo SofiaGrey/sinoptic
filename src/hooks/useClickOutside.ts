@@ -9,10 +9,10 @@ export const useClickOutside = (
 			if (ref && e.target instanceof Node && !ref.current?.contains(e.target)) {
 				handleCLose(false);
 			}
-			document.addEventListener('click', handleClick);
-			return () => {
-				document.removeEventListener('click', handleClick);
-			};
+		};
+		document.addEventListener('click', handleClick);
+		return () => {
+			document.removeEventListener('click', handleClick);
 		};
 	}, []);
 };
