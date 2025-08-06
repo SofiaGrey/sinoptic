@@ -1,11 +1,12 @@
 ﻿import { Container, Main, Search } from '@/components';
-import styles from './MainPage.module.scss';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import styles from './MainPage.module.scss';
 
 const MainPage = () => {
 	const [coords, setCoords] = useState<GeolocationCoordinates | null>(null);
 	const navigate = useNavigate();
+
 	useEffect(() => {
 		if (navigator.geolocation) {
 			navigator.geolocation.getCurrentPosition(
@@ -18,9 +19,7 @@ const MainPage = () => {
 	}, []);
 
 	if (coords) {
-		window.localStorage.setItem('lat', String(coords.latitude));
-		window.localStorage.setItem('lon', String(coords.longitude));
-		navigate(`/weather`);
+		navigate(`/weather?lat=${coords.latitude}&lon=${coords.longitude}`);
 	}
 
 	return (

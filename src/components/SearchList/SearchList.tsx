@@ -27,12 +27,7 @@ export const SearchList: FC<Props> = ({ city }) => {
 			const lat = btn.dataset.lat;
 			const lon = btn.dataset.lon;
 
-			if (lat && lon) {
-				localStorage.setItem('selectedCityLat', lat);
-				localStorage.setItem('selectedCityLon', lon);
-			}
-
-			navigate(`/weather?city=${city}`);
+			navigate(`/weather?lat=${lat}&lon=${lon}&city=${city}`);
 		}
 	};
 
@@ -66,7 +61,8 @@ export const SearchList: FC<Props> = ({ city }) => {
 									data-lon={item.lon}>
 									<p className={styles.city}>{item.address.name}</p>
 									<p className={styles.country}>
-										{item.address.state} {item.address.country}
+										{item.address.county} {item.address.state}{' '}
+										{item.address.country}
 									</p>
 								</button>
 							</li>
