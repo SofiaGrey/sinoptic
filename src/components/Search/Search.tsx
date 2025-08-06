@@ -28,6 +28,7 @@ export const Search: FC<Props> = ({ cityFromQuery = '', classNameBlock }) => {
 				className={styles.default__input}
 				type="text"
 				placeholder="Поиск по городам"
+				autoComplete="off"
 				value={city}
 				name="search"
 				onFocus={() => setIsOpen(true)}

@@ -17,6 +17,7 @@ export const SearchList: FC<Props> = ({ city }) => {
 		enabled: city.length >= 3,
 		retry: 1,
 	});
+	console.log(data)
 
 	const handleClick = (e: MouseEvent<HTMLUListElement>) => {
 		if (!(e.target instanceof HTMLElement)) return;

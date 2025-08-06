@@ -10,14 +10,14 @@ interface ApiParams {
 }
 const fetchWeather = async (
 	endpoint: string,
-	{ city, lat, lon, lang, units }: ApiParams,
+	{ lat, lon, lang, units }: ApiParams,
 ) => {
 	const res = await fetch(
 		`${API_URL}/${endpoint}?lat=${lat}&lon=${lon}&lang=${lang}&units=${units}&appid=${API_KEY}`,
 	);
 	if (!res.ok) {
 		throw new Error(
-			`Не удалось получить данные по указанному городу - ${city}`,
+			`Не удалось получить данные по указанному городу`,
 		);
 	}
 	return res.json();
