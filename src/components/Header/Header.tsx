@@ -1,22 +1,13 @@
-﻿import './Header.scss';
+﻿import { Link } from 'react-router-dom';
+import { Container } from '../Container/Container';
+import styles from './Header.module.scss'
 
 export const Header = () => {
 	return (
-		<header className="header">
-			<div className="container">
-
-			<h1 className="header__logo">SINOPTIC</h1>
-			</div>
-			{/* <div className="header__btn-wrapper">
-				<button className='btn'>°C</button>
-				|
-				<button className='btn'>°F</button>
-			</div>
-			<div className="header__btn-wrapper">
-				<button className='btn'>RU</button>
-				|
-				<button className='btn'>EN</button>
-			</div> */}
+		<header className={styles.header}>
+			<Container>
+			<Link to={'/'} className={styles.logo}>SINOPTIC</Link>
+			</Container>
 		</header>
 	);
 };
