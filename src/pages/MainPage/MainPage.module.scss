@@ -11,12 +11,22 @@
 }
 
 .title {
-	font-size: 40px;
+	font-size: 50px;
 	color: $textColor;
-	text-shadow: 1px 1px #397aad;
+	text-shadow: 2px 1px #397aad;
 }
 
-.subtitle {
+.descr {
+	font-size: 21px;
+	font-weight: 600;
 	color: #397aad;
 	text-shadow: 1px 1px $textColor;
+}
+
+.btn {
+	padding: 15px 30px;
+	font-size: 17px;
+	color: $textColor;
+	@include setBackground;
+	z-index: 1;
 }
