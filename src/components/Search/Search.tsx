@@ -23,9 +23,9 @@ export const Search: FC<Props> = ({ cityFromQuery = '', classNameBlock }) => {
 	return (
 		<div
 			ref={wrapperRef}
-			className={`${styles.default__search} ${classNameBlock} `}>
+			className={`${styles.default__search} ${classNameBlock}`}>
 			<input
-				className={styles.default__input}
+				className={`${styles.default__input} ${isOpen && isMore ? styles.open : ''}`}
 				type="text"
 				placeholder="Поиск по городам"
 				autoComplete="off"
