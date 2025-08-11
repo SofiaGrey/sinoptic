@@ -1,5 +1,4 @@
-import { getCity } from '@/api/location';
-import { useQuery } from '@tanstack/react-query';
+import { useCity } from '@/hooks/useCity';
 import type { FC, MouseEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './SearchList.module.scss';
@@ -11,13 +10,7 @@ interface Props {
 export const SearchList: FC<Props> = ({ city }) => {
 	const navigate = useNavigate();
 
-	const { data, status, error } = useQuery({
-		queryKey: ['location', city],
-		queryFn: () => getCity(city),
-		enabled: city.length >= 3,
-		retry: 1,
-	});
-	console.log(data)
+	const { data, status, error } = useCity(city);
 
 	const handleClick = (e: MouseEvent<HTMLUListElement>) => {
 		if (!(e.target instanceof HTMLElement)) return;

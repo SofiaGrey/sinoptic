@@ -1,4 +1,3 @@
-import { getAllWeatherData } from '@/api/temperature';
 import {
 	Container,
 	CurrentWeather,
@@ -9,8 +8,8 @@ import {
 	Main,
 	Search,
 } from '@/components';
+import { useWeather } from '@/hooks/useWeather';
 import { setBackground } from '@/utils';
-import { useQuery } from '@tanstack/react-query';
 import { useSearchParams } from 'react-router-dom';
 import styles from './WeatherPage.module.scss';
 
@@ -21,11 +20,7 @@ export const WeatherPage = () => {
 	const lon = searchParams.get('lon') || '';
 	const date = new Date();
 
-	const { data, status, error } = useQuery({
-		queryKey: ['weatherData', lat, lon],
-		queryFn: () => getAllWeatherData({ lat, lon, lang: 'ru', units: 'metric' }),
-		retry: 1,
-	});
+	const { data, status, error } = useWeather(lat, lon);
 
 	switch (status) {
 		case 'error':
