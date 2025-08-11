@@ -1,4 +1,4 @@
-﻿import { API_KEY, API_URL } from '../constants/constants';
+﻿import { API_URL, APIS } from '../constants/constants';
 import type { CurrentWeatherType, ForecastWeather } from '../types/types';
 
 interface ApiParams {
@@ -13,12 +13,10 @@ const fetchWeather = async (
 	{ lat, lon, lang, units }: ApiParams,
 ) => {
 	const res = await fetch(
-		`${API_URL}/${endpoint}?lat=${lat}&lon=${lon}&lang=${lang}&units=${units}&appid=${API_KEY}`,
+		`${API_URL}/${endpoint}?lat=${lat}&lon=${lon}&lang=${lang}&units=${units}&appid=${APIS.API_KEY}`,
 	);
 	if (!res.ok) {
-		throw new Error(
-			`Не удалось получить данные по указанному городу`,
-		);
+		throw new Error(`Не удалось получить данные по указанному городу`);
 	}
 	return res.json();
 };
