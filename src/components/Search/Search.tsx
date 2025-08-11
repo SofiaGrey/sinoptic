@@ -15,7 +15,7 @@ export const Search: FC<Props> = ({ cityFromQuery = '', classNameBlock }) => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [city, setCity] = useState(cityFromQuery);
 
-	useClickOutside(wrapperRef, setIsOpen);
+	useClickOutside<HTMLDivElement>(wrapperRef, setIsOpen);
 	const debounce = useDebounce(city, 500);
 
 	let isMore = city.length >= 3;
