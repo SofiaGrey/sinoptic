@@ -7,7 +7,10 @@
 	width: 100%;
 	color: $textColor;
 	z-index: 1;
-	&__logo {
-		font: 700 20px 'Exo 2';
-	}
+}
+
+.logo {
+	font: 700 20px 'Exo 2';
+	color: $textColor;
+	text-decoration: none;
 }

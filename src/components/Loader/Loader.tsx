@@ -1,7 +1,6 @@
 ﻿import styles from './Loader.module.scss';
-const Loader = () => {
+export const Loader = () => {
 	return (
-		// <>
 		<div className={styles.loader}>
 			<span className={`${styles.sun} ${styles.sunshine}`}></span>
 			<span className={styles.sun}></span>
@@ -14,8 +13,6 @@ const Loader = () => {
 				<span className={styles.right}></span>
 			</div>
 		</div>
-		// </>
 	);
 };
 
-export default Loader;

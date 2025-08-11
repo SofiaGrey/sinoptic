@@ -1,33 +1,40 @@
-import type { FC } from 'react';
+import { useClickOutside } from '@/hooks/useClickOutside';
+import useDebounce from '@/hooks/useDebounce';
+import { useRef, useState, type FC } from 'react';
+import { SearchList } from '../SearchList/SearchList';
 import styles from './Search.module.scss';
 
 interface Props {
-	city: string;
-	onChange: (city: string) => void;
-	onSearch: () => void;
+	cityFromQuery?: string;
 	classNameBlock?: string;
-	classNameInp?: string;
 }
 
+export const Search: FC<Props> = ({ cityFromQuery = '', classNameBlock }) => {
+	const wrapperRef = useRef<HTMLDivElement>(null);
 
-const Search:FC<Props> = ({city, onChange, onSearch, classNameBlock, classNameInp}) => {
+	const [isOpen, setIsOpen] = useState(false);
+	const [city, setCity] = useState(cityFromQuery);
+
+	useClickOutside<HTMLDivElement>(wrapperRef, setIsOpen);
+	const debounce = useDebounce(city, 500);
+
+	let isMore = city.length >= 3;
+
 	return (
-		<div className={`${styles.default__search} ${classNameBlock} `}>
+		<div
+			ref={wrapperRef}
+			className={`${styles.default__search} ${classNameBlock}`}>
 			<input
-				className={`${styles.default__input} ${classNameInp} `}
+				className={`${styles.default__input} ${isOpen && isMore ? styles.open : ''}`}
 				type="text"
 				placeholder="Поиск по городам"
+				autoComplete="off"
 				value={city}
-				onChange={(e) => onChange(e.target.value)}
-				onKeyDown={(e) => e.key === 'Enter' && onSearch()}
+				name="search"
+				onFocus={() => setIsOpen(true)}
+				onChange={(e) => setCity(e.target.value)}
 			/>
-			<button
-				className={styles.btn}
-				onClick={() => onSearch()}>
-				Найти
-			</button>
+			{isMore && isOpen && <SearchList city={debounce} />}
 		</div>
 	);
 };
-
-export default Search;

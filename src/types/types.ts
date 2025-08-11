@@ -16,12 +16,6 @@
 	| 'thundershtorm'
 	| 'windy';
 
-// export type ApiParameters = (
-// 	city: string,
-// 	lang: string,
-// 	units: string,
-// ) => 
-
 export interface CurrentWeatherType {
 	coord: {
 		lon: number;
@@ -120,4 +114,26 @@ export interface ForecastItem {
 		pod: string; // Часть суток: "d" (day) или "n" (night)
 	};
 	dt_txt: string; // Человеко-читаемая дата и время (например, "2025-05-20 12:00:00")
+}
+
+export interface LocationItem {
+	place_id: string;
+	osm_id: string;
+	osm_type: string;
+	licence: string;
+	lat: string;
+	lon: string;
+	boundingbox: string[];
+	class: string;
+	type: string;
+	display_name: string;
+	display_place: string;
+	display_address: string;
+	address: {
+		name: string;
+		county: string;
+		state?: string;
+		country?: string;
+		country_code: string;
+	};
 }

@@ -22,7 +22,7 @@ export const getWeatherIcon = (code: number, date: string | Date) => {
 
 export const formatUnixDate = (
 	timestamp: number,
-	format: 'time' | 'date' | 'week' | 'day',
+	format: 'time' | 'date' = 'time',
 ) => {
 	const date = new Date(timestamp * 1000);
 
@@ -45,19 +45,7 @@ export const formatUnixDate = (
 			.replace('.,', ' ');
 	}
 
-	// if (format === 'week') {
-	// 	return date.toLocaleString('ru', {
-	// 		weekday: 'long',
-	// 	})
-	// }
-	// if (format === 'day') {
-	// 	return date.toLocaleString('ru', {
-	// 		day: 'numeric',
-	// 		month: 'short',
-	// 	})
-	// }
-	// // return { formatDate, formatTime };
-	// return formatTime;
+
 };
 
 export const setBackground = (code: number, date: Date) => {
@@ -130,17 +118,12 @@ export const formatForecastKey = (key: string) => {
 	};
 };
 
-export const capitalize = (str: string) => {
-	return str ? str.charAt(0).toUpperCase() + str.slice(1) : '';
-};
-
-export const setColor = (num: string | number) => {
-	const temp = num.split(/[°\+]/)[1];
-	console.log(temp)
-	if (temp <= -20) return '#001f4d';
-	if (temp >= -19 && temp <= -10) return '#004080';
-	if (temp >= -9 && temp <= 0) return '#5fa4e8ff';
-	if (temp >= 1 && temp <= 9) return '#72d0ffff';
-	if (temp >= 10 && temp <= 29) return '#FFD259';
-	if (temp >= 30) return '#ff5733';
+export const setColor = (num: number) => {
+	const roundNum = Math.round(num)
+	if (roundNum <= -20) return '#001f4d';
+	if (roundNum >= -19 && roundNum <= -10) return '#1268beff';
+	if (roundNum >= -9 && roundNum <= 0) return '#5fa4e8ff';
+	if (roundNum >= 1 && roundNum <= 9) return '#72d0ffff';
+	if (roundNum >= 10 && roundNum <= 29) return '#FFD259';
+	if (roundNum >= 30) return '#ff5733';
 };
