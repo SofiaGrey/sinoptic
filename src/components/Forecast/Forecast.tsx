@@ -35,8 +35,6 @@ export const Forecast: FC<Props> = ({ data }) => {
 					<p className={styles.descr}>{item.weather[0].description}</p>
 					<p className={styles.time}>{formatUnixDate(item.dt)}</p>
 					<p className={styles.date}>{getDayLabel(item.dt)} </p>
-					{/* <p style={{transform:`rotate(${item.wind.deg}deg)` }}>{'^'}</p> */}
-
 				</li>
 			))}
 		</ul>
