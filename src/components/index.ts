@@ -1,6 +1,5 @@
 ﻿export { Container } from './Container/Container';
 export { CurrentWeather } from './CurrentWeather/CurrentWeather';
-export { Error } from './Error/Error';
 export { FiveDayForecast } from './FiveDayForecast/FiveDayForecast';
 export { Forecast } from './Forecast/Forecast';
 export { Header } from './Header/Header';

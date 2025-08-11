@@ -1,5 +1,5 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { Header } from './components';
 import { ROUTES } from './constants/constants';
 import { ErrorPage } from './pages/ErrorPage/ErrorPage';
@@ -12,12 +12,25 @@ function App() {
 	return (
 		<QueryClientProvider client={queryClient}>
 			<BrowserRouter>
-			<Header />
-			<Routes>
-				<Route path={ROUTES.main} element={<MainPage/>}/>
-				<Route path={ROUTES.weater} element={<WeatherPage/>}/>
-				<Route path={ROUTES.error} element={<ErrorPage/>}/>
-			</Routes>
+				<Header />
+				<Routes>
+					<Route
+						path={ROUTES.main}
+						element={<MainPage />}
+					/>
+					<Route
+						path={ROUTES.weater}
+						element={<WeatherPage />}
+					/>
+					<Route
+						path={ROUTES.error}
+						element={<ErrorPage />}
+					/>
+					<Route
+						path="*"
+						element={<Navigate to={ROUTES.error} />}
+					/>
+				</Routes>
 			</BrowserRouter>
 		</QueryClientProvider>
 	);
