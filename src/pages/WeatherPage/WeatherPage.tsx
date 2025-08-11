@@ -1,16 +1,16 @@
 import {
 	Container,
 	CurrentWeather,
-	Error,
 	FiveDayForecast,
 	Forecast,
 	Loader,
 	Main,
 	Search,
 } from '@/components';
+import { ROUTES } from '@/constants/constants';
 import { useWeather } from '@/hooks/useWeather';
 import { setBackground } from '@/utils';
-import { useSearchParams } from 'react-router-dom';
+import { Navigate, useSearchParams } from 'react-router-dom';
 import styles from './WeatherPage.module.scss';
 
 export const WeatherPage = () => {
@@ -24,7 +24,13 @@ export const WeatherPage = () => {
 
 	switch (status) {
 		case 'error':
-			return <Error error={error.message} />;
+			return (
+				<Navigate
+					to={ROUTES.error}
+					state={{ message: error.message }}
+					replace
+				/>
+			);
 		case 'pending':
 			return <Loader />;
 		case 'success':

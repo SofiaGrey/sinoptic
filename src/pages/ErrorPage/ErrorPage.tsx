@@ -1,18 +1,15 @@
-import type { FC } from 'react';
-import styles from './Error.module.scss';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import styles from './ErrorPage.module.scss';
 
-interface Props {
-	error: string;
-}
-
-export const Error: FC<Props> = ({ error }) => {
+export const ErrorPage = () => {
 	const navigate = useNavigate();
-
+	const location = useLocation();
+	const message = location.state.message || '';
+	
 	return (
 		<div className={styles.block}>
 			<h1 className={styles.title}>Произошла ошибка - 404</h1>
-			<p className={styles.error}>{error}</p>
+			<p className={styles.error}>{message}</p>
 			<button
 				className={styles.btn}
 				onClick={() => navigate('/')}>
@@ -21,4 +18,3 @@ export const Error: FC<Props> = ({ error }) => {
 		</div>
 	);
 };
-
